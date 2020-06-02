@@ -30,6 +30,8 @@ class CSHLDAP:
         for uri in ldap_srvs:
             ldap_uris += "ldaps://"+uri.hostname+","
         self.__con__ = ReconnectLDAPObject(ldap_uris)
+        # Allow connections with self-signed certs 
+        self.__con__.set_option(self.__con__.OPT_X_TLS_REQUIRE_CERT, self.__con__.OPT_X_TLS_ALLOW)
         if sasl:
             self.__con__.sasl_non_interactive_bind_s('')
         else:
